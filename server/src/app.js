@@ -9,6 +9,7 @@ import oidcRoutes from "./routes/oidcRoutes.js";
 import embedRoutes from "./routes/embedRoutes.js";
 import apiKeyRoutes from "./routes/apiKeyRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import mcpRouter from "./mcp/index.js";
 import { authenticateToken } from "./middleware/auth.js";
 import { authenticateApiKey } from "./middleware/apiKeyAuth.js";
 import { requireAdmin } from "./middleware/adminAuth.js";
@@ -54,6 +55,7 @@ app.use(`${basePath}/api/share`, shareRoutes);
 app.use(`${basePath}/api/public/snippets`, publicRoutes);
 app.use(`${basePath}/api/embed`, embedRoutes);
 app.use(`${basePath}/api/admin`, authenticateToken, requireAdmin, adminRoutes);
+app.use(`${basePath}/api/mcp`, authenticateApiKey, authenticateToken, mcpRouter);
 
 app.use(
   `${basePath}/manifest.json`,
